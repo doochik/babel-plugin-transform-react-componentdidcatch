@@ -1,10 +1,10 @@
-const renderErrorHandler = require('./path/to/my/renderErrorHandler.js');
+const componentDidCatchHandler = require('./path/to/my/componentDidCatchHandler.js');
 
 const { PureComponent } = require('react');
 
 class TestComponent extends PureComponent {
     componentDidCatch(error, info) {
-        renderErrorHandler(error, info);
+        componentDidCatchHandler(error, info);
     }
 
     render() {

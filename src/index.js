@@ -2,9 +2,9 @@
 
 const babylon = require('babylon');
 
-const errorHandlerName = 'renderErrorHandler';
+const errorHandlerName = 'componentDidCatchHandler';
 
-const tryCatchRender = `renderErrorHandler(error, info);`;
+const tryCatchRender = `componentDidCatchHandler(error, info);`;
 const tryCatchRenderAST = babylon.parse(tryCatchRender, { allowReturnOutsideFunction: true }).program.body[0];
 
 const createReactChecker = (t) => (node) => {
@@ -42,15 +42,15 @@ module.exports = (_ref) => {
                         return;
                     }
 
-                    if (!state.opts.errorHandler) {
-                        throw Error('[babel-plugin-transform-react-componentdidcatch] You must define "errorHandler" property');
+                    if (!state.opts.componentDidCatchHandler) {
+                        throw Error('[babel-plugin-transform-react-componentdidcatch] You must define "componentDidCatchHandler" property');
                     }
 
                     const varName = t.identifier(errorHandlerName);
                     const variableDeclaration = t.variableDeclaration('const', [
                         t.variableDeclarator(
                             varName,
-                            t.callExpression(t.identifier('require'), [ t.stringLiteral(state.opts.errorHandler) ])
+                            t.callExpression(t.identifier('require'), [ t.stringLiteral(state.opts.componentDidCatchHandler) ])
                         )
                     ]);
                     path.unshiftContainer('body', variableDeclaration);

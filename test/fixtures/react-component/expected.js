@@ -1,10 +1,10 @@
-const renderErrorHandler = require('./path/to/my/renderErrorHandler.js');
+const componentDidCatchHandler = require('./path/to/my/componentDidCatchHandler.js');
 
 const React = require('react');
 
 class TestComponent extends React.Component {
     componentDidCatch(error, info) {
-        renderErrorHandler(error, info);
+        componentDidCatchHandler(error, info);
     }
 
     render() {
