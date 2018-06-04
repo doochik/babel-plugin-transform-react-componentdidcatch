@@ -1,0 +1,30 @@
+{
+  "name": "@doochik/babel-plugin-transform-react-componentdidcatch",
+  "version": "0.0.1",
+  "description": "Adds componentDidCatch to every React.(Pure)Component ",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run test:eslint && npm run test:mocha",
+    "test:mocha": "mocha",
+    "test:eslint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doochik/babel-plugin-transform-react-componentdidcatch.git"
+  },
+  "author": "Aleksei Androsov <aandrosov@yandex-team.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doochik/babel-plugin-transform-react-componentdidcatch/issues"
+  },
+  "homepage": "https://github.com/doochik/babel-plugin-transform-react-componentdidcatch#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "eslint": "^4.10.0",
+    "mocha": "^4.0.1"
+  },
+  "engine": {
+    "node": ">=6"
+  }
+}
