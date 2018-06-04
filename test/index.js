@@ -8,7 +8,7 @@ const babel  = require('babel-core');
 describe('fixtures', () => {
     const fixturesDir = path.join(__dirname, 'fixtures');
 
-    fs.readdirSync(fixturesDir).map((caseName, i) => {
+    fs.readdirSync(fixturesDir).map(caseName => {
         if (caseName === '.babelrc') return;
 
         it(caseName.split('-').join(' '), () => {
