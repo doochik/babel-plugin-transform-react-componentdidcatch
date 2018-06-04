@@ -5,17 +5,17 @@ const babylon = require('babylon');
 const errorHandlerName = 'renderErrorHandler';
 
 const tryCatchRender = `renderErrorHandler(error, info);`;
-const tryCatchRenderAST = babylon.parse(tryCatchRender, {allowReturnOutsideFunction: true}).program.body[0];
+const tryCatchRenderAST = babylon.parse(tryCatchRender, { allowReturnOutsideFunction: true }).program.body[0];
 
 const createReactChecker = (t) => (node) => {
     const superClass = node.superClass;
-    return t.isIdentifier(superClass, {name: 'Component'}) ||
-        t.isIdentifier(superClass, {name: 'PureComponent'}) ||
+    return t.isIdentifier(superClass, { name: 'Component' }) ||
+        t.isIdentifier(superClass, { name: 'PureComponent' }) ||
         t.isMemberExpression(superClass) && (
-            t.isIdentifier(superClass.object, {name: 'React'}) &&
+            t.isIdentifier(superClass.object, { name: 'React' }) &&
             (
-                t.isIdentifier(superClass.property, {name: 'Component'}) ||
-                t.isIdentifier(superClass.property, {name: 'PureComponent'})
+                t.isIdentifier(superClass.property, { name: 'Component' }) ||
+                t.isIdentifier(superClass.property, { name: 'PureComponent' })
             )
         );
 };
@@ -26,7 +26,7 @@ module.exports = (_ref) => {
     const isReactClass = createReactChecker(t);
 
     const bodyVisitor = {
-        ClassMethod: function(path) {
+        ClassMethod: function (path) {
             // try to find componentDidCatch() method definition
             if (path.node.key.name === 'componentDidCatch') {
                 this.componentDidCatchMethodPath = path;
@@ -50,7 +50,7 @@ module.exports = (_ref) => {
                     const variableDeclaration = t.variableDeclaration('const', [
                         t.variableDeclarator(
                             varName,
-                            t.callExpression(t.identifier('require'), [t.stringLiteral(state.opts.errorHandler)])
+                            t.callExpression(t.identifier('require'), [ t.stringLiteral(state.opts.errorHandler) ])
                         )
                     ]);
                     path.unshiftContainer('body', variableDeclaration);
@@ -77,8 +77,8 @@ module.exports = (_ref) => {
                     t.classMethod(
                         'method',
                         t.identifier('componentDidCatch'),
-                        [ t.identifier('error'), t.identifier('info')],
-                        t.blockStatement([tryCatchRenderAST])
+                        [ t.identifier('error'), t.identifier('info') ],
+                        t.blockStatement([ tryCatchRenderAST ])
                     )
                 );
 
