@@ -12,7 +12,7 @@ describe('fixtures', () => {
         it(caseName.split('-').join(' '), () => {
             const fixtureDir = join(fixturesDir, caseName);
             const actual     = babel.transformFileSync(
-                join(fixtureDir, 'actual.js')
+                join(fixtureDir, 'actual.js'),
             ).code;
             const expected = readFileSync(join(fixtureDir, 'expected.js')).toString();
 
