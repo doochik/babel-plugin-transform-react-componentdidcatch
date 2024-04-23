@@ -7,24 +7,28 @@
         "eslint:recommended"
     ],
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 2020,
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
         }
     },
+    "plugins": [
+        "@stylistic/js"
+    ],
     "rules": {
-        "array-bracket-spacing": ["error", "always"],
-        "no-multiple-empty-lines": "error",
-        "object-curly-spacing": ["error", "always"],
-        "quotes": ["error", "single", {
+        "@stylistic/js/array-bracket-spacing": ["error", "always"],
+        "@stylistic/js/comma-dangle": ["error", "always-multiline"],
+        "@stylistic/js/no-multiple-empty-lines": "error",
+        "@stylistic/js/object-curly-spacing": ["error", "always"],
+        "@stylistic/js/quotes": ["error", "single", {
             "allowTemplateLiterals": true
         }]
     },
     "settings": {
         "react": {
             "pragma": "React",
-            "version": "15.6.1"
+            "version": "17.0.2"
         }
     }
 }
