@@ -1,29 +1,22 @@
 'use strict';
 
-const { parse } = require('@babel/parser');
-
-const errorHandlerName = 'componentDidCatchHandler';
-
-const tryCatchRender = `componentDidCatchHandler(error, info);`;
-const tryCatchRenderAST = parse(tryCatchRender, { allowReturnOutsideFunction: true }).program.body[0];
-
-const createReactChecker = (t) => (node) => {
-    const superClass = node.superClass;
-    return t.isIdentifier(superClass, { name: 'Component' }) ||
-        t.isIdentifier(superClass, { name: 'PureComponent' }) ||
-        t.isMemberExpression(superClass) && (
-            t.isIdentifier(superClass.object, { name: 'React' }) &&
-            (
-                t.isIdentifier(superClass.property, { name: 'Component' }) ||
-                t.isIdentifier(superClass.property, { name: 'PureComponent' })
-            )
-        );
-};
-
 module.exports = (_ref) => {
     const t = _ref.types;
 
-    const isReactClass = createReactChecker(t);
+    const errorHandlerName = 'componentDidCatchHandler';
+
+    const isReactClass = (t) => (node) => {
+        const superClass = node.superClass;
+        return t.isIdentifier(superClass, { name: 'Component' }) ||
+            t.isIdentifier(superClass, { name: 'PureComponent' }) ||
+            t.isMemberExpression(superClass) && (
+                t.isIdentifier(superClass.object, { name: 'React' }) &&
+                (
+                    t.isIdentifier(superClass.property, { name: 'Component' }) ||
+                    t.isIdentifier(superClass.property, { name: 'PureComponent' })
+                )
+            );
+    };
 
     const bodyVisitor = {
         ClassMethod: function (path) {
@@ -84,7 +77,14 @@ module.exports = (_ref) => {
                         'method',
                         t.identifier('componentDidCatch'),
                         [ t.identifier('error'), t.identifier('info') ],
-                        t.blockStatement([ tryCatchRenderAST ])
+                        t.blockStatement([
+                            t.expressionStatement(
+                                t.callExpression(t.identifier(errorHandlerName), [
+                                    t.identifier('error'),
+                                    t.identifier('info')
+                                ])
+                            )
+                        ])
                     )
                 );
 
