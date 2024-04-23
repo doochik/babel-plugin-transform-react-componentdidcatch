@@ -1,6 +1,6 @@
 {
   "name": "@doochik/babel-plugin-transform-react-componentdidcatch",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Adds componentDidCatch to every React.(Pure)Component ",
   "main": "src/index.js",
   "scripts": {
