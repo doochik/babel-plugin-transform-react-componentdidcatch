@@ -44,8 +44,8 @@ module.exports = (_ref) => {
                         const variableDeclaration = t.variableDeclaration('const', [
                             t.variableDeclarator(
                                 varName,
-                                t.callExpression(t.identifier('require'), [ t.stringLiteral(state.opts.componentDidCatchHandler) ])
-                            )
+                                t.callExpression(t.identifier('require'), [ t.stringLiteral(state.opts.componentDidCatchHandler) ]),
+                            ),
                         ]);
                         path.unshiftContainer('body', variableDeclaration);
                     } else {
@@ -53,7 +53,7 @@ module.exports = (_ref) => {
                         const importDeclaration = t.importDeclaration([ t.importDefaultSpecifier(importName) ], t.stringLiteral(state.opts.componentDidCatchHandler));
                         path.unshiftContainer('body', importDeclaration);
                     }
-                }
+                },
             },
             Class(path, pass) {
                 if (!isReactClass(path.node)) {
@@ -81,16 +81,16 @@ module.exports = (_ref) => {
                             t.expressionStatement(
                                 t.callExpression(t.identifier(errorHandlerName), [
                                     t.identifier('error'),
-                                    t.identifier('info')
-                                ])
-                            )
-                        ])
-                    )
+                                    t.identifier('info'),
+                                ]),
+                            ),
+                        ]),
+                    ),
                 );
 
                 // pass info for Program:exit to create errorHandler import
                 pass.insertErrorHandler = true;
-            }
-        }
+            },
+        },
     };
 };
