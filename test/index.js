@@ -3,7 +3,7 @@
 const path   = require('path');
 const fs     = require('fs');
 const assert = require('assert');
-const babel  = require('babel-core');
+const babel  = require('@babel/core');
 
 describe('fixtures', () => {
     const fixturesDir = path.join(__dirname, 'fixtures');
@@ -18,11 +18,7 @@ describe('fixtures', () => {
             ).code;
             const expected = fs.readFileSync(path.join(fixtureDir, 'expected.js')).toString();
 
-            assert.equal(trim(actual), trim(expected));
+            assert.equal(actual.trim().replace(/\t/g, '    '), expected.trim());
         });
     });
 });
-
-function trim(str) {
-    return str.replace(/^\s+|\s+$/, '');
-}

@@ -1,8 +1,11 @@
 {
     "plugins": [
-        "syntax-jsx",
-        ["../../src/index.js", {
-            "componentDidCatchHandler": "./path/to/my/componentDidCatchHandler.js"
-        }]
+        "@babel/plugin-syntax-jsx",
+        [
+            "../../src/index.js",
+            {
+                "componentDidCatchHandler": "./path/to/my/componentDidCatchHandler.js"
+            }
+        ]
     ]
 }

@@ -1,11 +1,11 @@
 'use strict';
 
-const babylon = require('babylon');
+const { parse } = require('@babel/parser');
 
 const errorHandlerName = 'componentDidCatchHandler';
 
 const tryCatchRender = `componentDidCatchHandler(error, info);`;
-const tryCatchRenderAST = babylon.parse(tryCatchRender, { allowReturnOutsideFunction: true }).program.body[0];
+const tryCatchRenderAST = parse(tryCatchRender, { allowReturnOutsideFunction: true }).program.body[0];
 
 const createReactChecker = (t) => (node) => {
     const superClass = node.superClass;
